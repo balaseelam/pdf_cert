@@ -1,0 +1,170 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\qj\f0\fs22\lang9\par
+                                 \b\fs32 Spring framework fundamentals\b0\fs22\par
+Spring Framework is a comprehensive and modular framework for building enterprise-level Java applications. It provides infrastructure support for developing Java applications and is widely used for building web applications, microservices, and enterprise applications.\par
+\b\fs28 Key Fundamentals of Spring Framework\par
+Inversion of Control (IoC):\b0\par
+Definition: Inversion of Control is a principle where the control of objects or portions of a program is transferred to a container or framework.\par
+Implementation in Spring: This is implemented through Dependency Injection (DI), where the Spring container manages the dependencies and configurations of application components.\par
+Benefits: Promotes loose coupling, enhances testability, and simplifies application configuration and management.\par
+\par
+\b Dependency Injection (DI):\par
+\b0 Definition: DI is a design pattern in which an object receives its dependencies from an external source rather than creating them itself.\par
+Types in Spring:\par
+Constructor Injection: Dependencies are provided through a class constructor.\par
+Setter Injection: Dependencies are provided through setter methods.\par
+Field Injection: Dependencies are directly injected into fields (less commonly used due to testing and clarity concerns).\par
+\b Example:\b0\par
+\b public class Car \{\par
+    private Engine engine;\par
+     // Constructor Injection\par
+    @Autowired\par
+    public Car(Engine engine) \{\par
+        this.engine = engine;\par
+    \}\par
+    // Setter Injection\par
+    @Autowired\par
+    public void setEngine(Engine engine) \{\par
+        this.engine = engine;\par
+    \}\par
+\}\par
+Aspect-Oriented Programming (AOP):\b0\par
+Definition: AOP allows for the separation of cross-cutting concerns (such as logging, security, or transaction management) from the main business logic.\par
+Implementation in Spring: Uses aspects, pointcuts, and advice to modularize concerns that affect multiple parts of an application.\par
+\b Example :\b0\par
+@Aspect\par
+public class LoggingAspect \{\par
+    @Before("execution(* com.example.service.*.*(..))")\par
+    public void logBefore(JoinPoint joinPoint) \{\par
+        System.out.println("Logging before method: " + joinPoint.getSignature().getName());\par
+    \}\par
+\}\par
+\b Spring Core Container:\b0\par
+\b Components:\b0\par
+\b BeanFactory\b0 : The simplest container providing basic DI support.\par
+\b ApplicationContext: \b0 A more advanced container with features like AOP integration, event propagation, declarative mechanisms, and easier integration with other frameworks.\par
+\b Bean Configuration:\b0\par
+\b XML Configuration\b0 : Traditional method using XML files to define beans and dependencies.\par
+\b Java-based Configuration\b0 : Modern approach using @Configuration and @Bean annotations.\par
+\b Annotation-based Configuration\b0 : Using annotations like @Component, @Service, @Repository, and @Controller.\par
+\par
+\b Spring MVC (Model-View-Controller):\b0\par
+Definition: A framework for building web applications in a modular, scalable, and flexible way.\par
+\b Components:\b0\par
+\b DispatcherServlet\b0 : Central dispatcher for HTTP requests, routing them to appropriate handlers.\par
+\b Controllers\b0 : Handle requests and return views.\par
+\b Models\b0 : Hold application data and business logic.\par
+\b Views\b0 : Render the model data (typically using JSP, Thymeleaf, or other templating technologies).\par
+\b Example:\b0\par
+@Controller\par
+public class HomeController \{\par
+    @RequestMapping("/home")\par
+    public String home(Model model) \{\par
+        model.addAttribute("message", "Welcome to Spring MVC!");\par
+        return "home";\par
+\}\par
+\}\par
+\b Spring Boot:\b0\par
+\b Definition: \b0 A framework that simplifies the setup and development of new Spring applications.\par
+\b Features:\b0\par
+\b Auto-Configuration: \b0 Automatically configures Spring applications based on the jar dependencies.\par
+\b Embedded Servers: \b0 Comes with embedded web servers like Tomcat, Jetty, or Undertow.\par
+\b Spring Initializr\b0 : A web-based tool to quickly bootstrap Spring Boot projects.\par
+\b Example:\b0\par
+@SpringBootApplication\par
+public class Application \{\par
+    public static void main(String[] args) \{\par
+        SpringApplication.run(Application.class, args);\par
+    \}\par
+\}\par
+\b Spring Data:\b0\par
+\b Definition\b0 : Aims to simplify the data access layer, providing a consistent way to interact with different data stores.\par
+\b Key Modules:\b0\par
+\b Spring Data JPA\b0 : Simplifies JPA-based data access with repositories and query methods.\par
+\b Spring Data MongoDB\b0 : Supports MongoDB operations.\par
+\b Spring Data Redis\b0 : For Redis data stores.\par
+\b Example (Spring Data JPA):\par
+\b0 @Entity\par
+public class User \{\par
+    @Id\par
+    @GeneratedValue(strategy = GenerationType.IDENTITY)\par
+    private Long id;\par
+    private String name;\par
+    private String email;\par
+\}\par
+public interface UserRepository extends JpaRepository<User, Long> \{\par
+    List<User> findByName(String name);\par
+\}\par
+\b Spring Security:\b0\par
+\b Definition: \b0 Provides comprehensive security services for Java applications.\par
+Features:\par
+\b Authentication and Authorization\b0 : Supports a variety of authentication mechanisms and access control.\par
+\b Integration\b0 : Works seamlessly with Spring MVC and other Spring components.\par
+\b Declarative Security\b0 : Using annotations and XML for security configuration.\par
+\b Example\b0 :\par
+@Configuration\par
+@EnableWebSecurity\par
+public class SecurityConfig extends WebSecurityConfigurerAdapter \{\par
+    @Override\par
+    protected void configure(HttpSecurity http) throws Exception \{\par
+        http.authorizeRequests()\par
+            .antMatchers("/public/**").permitAll()\par
+            .anyRequest().authenticated()\par
+            .and()\par
+            .formLogin()\par
+            .loginPage("/login")\par
+            .permitAll();\par
+    \}\par
+\}   \par
+\b Spring Batch:\b0\par
+\b Definition: \b0 A framework for batch processing, including processing of large volumes of data in a highly scalable manner.\par
+\b Components:\b0\par
+\b Jobs: \b0 Define the batch process.\par
+\b Steps: \b0 Sequential steps in a job, each step can involve reading, processing, and writing data.\par
+\b Tasklets\b0 : Units of work in a step\par
+\b Example:\par
+\b0 @Configuration\par
+public class BatchConfig \{\par
+    @Bean\par
+    public Job job(JobBuilderFactory jobBuilderFactory, Step step) \{\par
+        return jobBuilderFactory.get("job")\par
+            .incrementer(new RunIdIncrementer())\par
+            .start(step)\par
+            .build();\par
+    \}\par
+@Bean\par
+    public Step step(StepBuilderFactory stepBuilderFactory, ItemReader<String> reader, ItemProcessor<String, String> processor, ItemWriter<String> writer) \{\par
+        return stepBuilderFactory.get("step")\par
+            .<String, String>chunk(10)\par
+            .reader(reader)\par
+            .processor(processor)\par
+            .writer(writer)\par
+            .build();\par
+    \}\par
+\}\par
+\b Spring Cloud:\b0\par
+\b Definition: \b0 Provides tools for building and managing microservices architecture.\par
+\b Key Features:\b0\par
+\b Configuration Management\b0 : Centralized configuration management.\par
+\b Service Discovery\b0 : Registering and discovering services using tools like Eureka.\par
+\b Load Balancing\b0 : Distributing loads among microservices.\par
+\b Circuit Breakers\b0 : Fault tolerance to handle service failures gracefully.\par
+\b Example (Service Discovery with Eureka):\par
+\b0 @EnableEurekaClient\par
+@SpringBootApplication\par
+public class ServiceApplication \{\par
+    public static void main(String[] args) \{\par
+        SpringApplication.run(ServiceApplication.class, args);\par
+    \}\par
+\}\par
+\par
+\par
+\par
+\par
+\par
+\par
+\b\par
+\par
+}
+ 

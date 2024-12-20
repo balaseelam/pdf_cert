@@ -1,0 +1,32 @@
+Mvn commands on cmd:
+mvn clean -> delete the jar from target folder -> at classpath
+mvn package -DskipTests -> it generate jar file in target folder
+cd target
+java -jar employee-system1-0.0.1-SNAPSHOT.jar
+------------------------------------------------
+hackathon- 
+java -jar employee-system1-0.0.1-SNAPSHOT.jar --bootstrap-server localhost:9090
+
+how to Run the same Spring Boot application in different profiles like dev & qa with different ports and 
+different properties on command prompt and run them simultaneously 
+in application.properties (main application file)
+1. spring.profiles.active=dev
+2. spring.profiles.active=qa
+
+In cmd:
+java -jar your-application.jar --spring.profiles.active=dev
+java -jar your-application.jar --spring.profiles.active=qa
+
+
+java -jar employee-system1-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+==================================================================
+List<Integer> li=Arrays.asList(1,2,3,4,5,6,7,8,8,8,8,7,5,2,2,1,1);
+
+Map<Integer,Integer> countMap=new HashMap<>();
+
+for(int i:li){
+	countMap.put(i,countMap.getOrDefault(i,0)+1);
+}
+
+I have two years of experience in Java full stack web development. As a dedicated software developer having good knowledge on full stack development. able to handle any part of the process with ease. collaborative team player with excellent technical abilities.
+
